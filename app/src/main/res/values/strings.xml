@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BloodGift</string>
+
+    <string name="title_menu">Accueil</string>
+    <string name="notification_menu">Notification</string>
+    <string name="eligibility_menu">Eligibilité</string>
+    <string name="map_menu">Carte des centres</string>
 </resources>
