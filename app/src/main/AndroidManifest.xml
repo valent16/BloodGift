@@ -18,7 +18,11 @@
         </activity>
         <activity android:name=".Vue.MapsActivity" />
         <activity android:name=".Vue.PersonnalInformationActivity" />
-        <activity android:name=".Vue.SettingsActivity"></activity>
+        <activity android:name=".Vue.SettingsActivity" />
+        <activity
+            android:name=".Vue.MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
     </application>
 
 </manifest>

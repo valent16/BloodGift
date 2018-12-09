@@ -2,13 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group>
         <item
-            android:id="@+id/nav_gallery"
-            android:title="@string/notification_menu" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_accueil"
+            android:title="@string/home_menu" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_eligibility"
+            android:icon="@drawable/ic_eligibilite"
             android:title="@string/eligibility_menu" />
         <item
-            android:id="@+id/nav_manage"
+            android:id="@+id/nav_map"
+            android:icon="@drawable/ic_map"
             android:title="@string/map_menu" />
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/ic_notification"
+            android:title="@string/notification_menu" />
     </group>
 </menu>
