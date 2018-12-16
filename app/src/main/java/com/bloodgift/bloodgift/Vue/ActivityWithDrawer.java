@@ -38,6 +38,8 @@ public class ActivityWithDrawer extends AppCompatActivity {
         actionbar.setDisplayHomeAsUpEnabled(true);
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
 
+        actionbar.setDisplayShowTitleEnabled(false);
+
         myDrawerLayout = findViewById(R.id.drawer_layout);
     }
 

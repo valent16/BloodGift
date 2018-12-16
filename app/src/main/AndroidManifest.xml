@@ -22,7 +22,11 @@
         <activity
             android:name=".Vue.MainActivity"
             android:label="@string/title_activity_main"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCG5vAqftOvCDjmM61OYZ2J7i8bbrGxgno" />
     </application>
 
 </manifest>
