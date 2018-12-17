@@ -27,13 +27,14 @@
                 android:layout_gravity="center"
                 android:textSize="25dp"/>
         </android.support.v7.widget.Toolbar>
-<!--
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
 
             <TextView
+                android:id="@+id/mapsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Map page"
@@ -43,7 +44,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
--->
+
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
