@@ -4,7 +4,7 @@
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>-->
-    <color name="colorActionBar">#D80000</color>
+    <color name="colorActionBar">#d80000</color>
     <color name="colorItem">#E76363</color>
     <color name="iconTint">#000000</color>
     <color name="balck">#000000</color>
