@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.bloodgift.bloodgift.R;
 import com.bloodgift.bloodgift.Vue.HomePageActivity;
 import com.bloodgift.bloodgift.Vue.MapsActivity;
-import com.bloodgift.bloodgift.Vue.PersonnalInformationActivity;
+import com.bloodgift.bloodgift.Vue.TestEligibleActivity;
 import com.bloodgift.bloodgift.Vue.SettingsActivity;
 
 public class MenuController {
@@ -55,7 +55,7 @@ public class MenuController {
 
     private void display_Eligibility_Page(){
         Toast.makeText(activity, "Test d'éligibilité", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent().setClass(activity,PersonnalInformationActivity.class);
+        Intent intent = new Intent().setClass(activity,TestEligibleActivity.class);
         activity.startActivity(intent);
     }
 
