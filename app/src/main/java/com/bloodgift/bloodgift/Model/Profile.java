@@ -2,7 +2,7 @@ package com.bloodgift.bloodgift.Model;
 
 import java.util.Date;
 
-public class Profil {
+public class Profile {
 
     //constantes
     private static final Integer minage = 18;
@@ -10,34 +10,34 @@ public class Profil {
     private static final Integer minpoids = 50;
 
     //propriétés
-    private Date dateProfil;
-    private Integer poids;
+    private Date dateProfile;
+    private Integer weight;
     private Integer age;
-    private Integer sexe;
+    private Integer sex;
     private String message;
 
-    public Profil(Date dateProfil, Integer age, Integer poids, Integer sexe) {
-        this.dateProfil = dateProfil;
-        this.poids = poids;
+    public Profile(Date dateProfile, Integer age, Integer weight, Integer sex) {
+        this.dateProfile = dateProfile;
+        this.weight = weight;
         this.age = age;
-        this.sexe = sexe;
+        this.sex = sex;
         this.resultatTest();
     }
 
-    public Date getDateProfil() {
-        return dateProfil;
+    public Date getDateProfile() {
+        return dateProfile;
     }
 
-    public Integer getPoids() {
-        return poids;
+    public Integer getWeight() {
+        return weight;
     }
 
     public Integer getAge() {
         return age;
     }
 
-    public Integer getSexe() {
-        return sexe;
+    public Integer getSex() {
+        return sex;
     }
 
     public String getMessage() {
@@ -50,7 +50,7 @@ public class Profil {
             message = "Il faut être agé d'au moins 18 ans pour pouvoir donner son sang";
         } else if (age>60){
             message = "Il faut avoir moins de 60 pour son premier don mais vous pouvez donner jusqu'à 70 ans sous reserve de l'accord d'un medecin";
-        } else if (poids<50) {
+        } else if (weight<50) {
             message = "vous êtes trop léger, il faut peser au moins 50kg pour donner son sang";
         } else {
             message = "Félicitation, vous pouvez donner votre sang !";

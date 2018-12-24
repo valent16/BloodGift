@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bloodgift.bloodgift.Controller.MapController;
+import com.bloodgift.bloodgift.Model.DAO.POIDAO;
 import com.bloodgift.bloodgift.Model.POI.CollectionPOI;
 import com.bloodgift.bloodgift.Model.POI.InfoPOI;
 import com.bloodgift.bloodgift.R;
@@ -41,11 +43,15 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
 
     private TextView text;
 
+    private MapController controller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         initializeView();
+
+        controller = new MapController(this);
 
         Bundle mapViewBundle = null;
         if (savedInstanceState != null) {
@@ -55,8 +61,6 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
-        text = findViewById(R.id.mapsText);
-
     }
 
     protected void initializeView(){
@@ -70,14 +74,7 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
         LatLng ny = new LatLng(48.866667, 2.33333);
         gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
 
-//        LatLng troyesLocation = new LatLng(48.3, 4.0833);
-//        troyes = gmap.addMarker(new MarkerOptions()
-//                .position(troyesLocation)
-//                .title("Troyes"));
-//
-//        troyes.setTag(0);
-
-        if (gmap != null){
+        if (gmap != null) {
             gmap.setInfoWindowAdapter(new GoogleMap.InfoWindowAdapter() {
                 @Override
                 public View getInfoWindow(Marker marker) {
@@ -98,7 +95,8 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
             });
         }
 
-        readJSon();
+        POIDAO poiDAO= new POIDAO(this);
+        updateMarkers(poiDAO.getAllPOI());
     }
 
     @Override
@@ -108,85 +106,83 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
     }
 
     /**
-     * Reads the JSon file
+     * update all the markers on the Google map.
      */
-    private void readJSon(){
+    public void updateMarkers(CollectionPOI collectionPOI){
+        gmap.clear();
 
-        try {
-            InputStream is = getAssets().open("DonSangCenter.json");
+        ArrayList<InfoPOI> listPOI = collectionPOI.getPOIInRadius(48.866667, 2.33333, 20000);
+        Log.i("infoBlood", "nombre de centre à proximité: "+listPOI.size());
 
-            int size = is.available();
-            byte[] buffer = new byte[size];
+        for( InfoPOI poi: listPOI){
+            LatLng location = new LatLng(poi.getLatitude(), poi.getLongitude());
+            Marker marker;
 
-            is.read(buffer);
-            is.close();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-            //casts the buffer table to a string
-            String json = new String(buffer, "UTF-8");
-
-            //JSONArray mArray = new JSONArray(json);
-
-            JSONObject obj = new JSONObject(json);
-
-           // Toast.makeText(this, "LongueurArray:"+mArray.length(), Toast.LENGTH_LONG).show()
-            Log.i("infoBlood", "nombre element JSONObject: "+obj.length());
-
-            JSONArray mArray = obj.getJSONArray("features");
-            Log.i("infoBlood", "nombre element JSONArray: "+mArray.length());
-
-            CollectionPOI pois = new CollectionPOI();
-
-            for (int i=0; i<mArray.length(); i++){
-                JSONObject poi = mArray.getJSONObject(i);
-                JSONObject poiProp = poi.getJSONObject("properties");
-                //Log.i("infoBlood", "lattitude: "+poiProp.optDouble("lat"));
-
-                double latitude = poiProp.optDouble("lat");
-                double longitude = poiProp.optDouble("lon");
-                String locationName = poiProp.optString("name");
-                String townName = poiProp.optString("where:name");
-
-                String startDateStr = poiProp.optString("start");
-                String stopDateStr = poiProp.optString("stop");
-
-                Date startDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'CET'").parse(startDateStr);
-                Date stopDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'CET'").parse(stopDateStr);
-
-                pois.addPoi(new InfoPOI(latitude, longitude, locationName, townName, startDate, stopDate));
-
-
-                //Log.i("infoBlood", "date: "+dateFormat.format(d1));
-
-
-                //Log.i("infoBlood", "lattitude: "+poiProp.optString("what"));
-                //poi.optString("properties");
-            }
-
-            ArrayList<InfoPOI> listPOI = pois.getPOIInRadius(48.866667, 2.33333, 20000);
-            Log.i("infoBlood", "nombre de centre à proximité: "+listPOI.size());
-
-
-            for( InfoPOI poi: listPOI){
-                LatLng location = new LatLng(poi.getLatitude(), poi.getLongitude());
-                Marker marker;
-
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-
-//                .icon(BitmapDescriptorFactory.fromResource(R.mipmap.ic_launcher))
-
-                marker = gmap.addMarker(new MarkerOptions()
-                        .position(location)
-                        .title(poi.getLocationName())
-                        .snippet("Début: "+dateFormat.format(poi.getStartDate())+"\n"
-                        +        "Fin:      "+dateFormat.format(poi.getStopDate()))
-                );
-                marker.setTag(0);
-            }
-
-        }
-        catch(Exception e ){
-            e.printStackTrace();
+            marker = gmap.addMarker(new MarkerOptions()
+                    .position(location)
+                    .title(poi.getLocationName())
+                    .snippet("Début: "+dateFormat.format(poi.getStartDate())+"\n"
+                            +        "Fin:      "+dateFormat.format(poi.getStopDate()))
+            );
+            marker.setTag(0);
         }
     }
+
+    /**
+     * Reads the JSon file
+     */
+//    private void readJSon(){
+//
+//        try {
+//            InputStream is = getAssets().open("DonSangCenter.json");
+//
+//            int size = is.available();
+//            byte[] buffer = new byte[size];
+//
+//            is.read(buffer);
+//            is.close();
+//
+//            //casts the buffer table to a string
+//            String json = new String(buffer, "UTF-8");
+//
+//            //JSONArray mArray = new JSONArray(json);
+//            JSONObject obj = new JSONObject(json);
+//
+//           // Toast.makeText(this, "LongueurArray:"+mArray.length(), Toast.LENGTH_LONG).show()
+//            Log.i("infoBlood", "nombre element JSONObject: "+obj.length());
+//
+//            JSONArray mArray = obj.getJSONArray("features");
+//            Log.i("infoBlood", "nombre element JSONArray: "+mArray.length());
+//
+//            CollectionPOI pois = new CollectionPOI();
+//
+//            for (int i=0; i<mArray.length(); i++){
+//                JSONObject poi = mArray.getJSONObject(i);
+//                JSONObject poiProp = poi.getJSONObject("properties");
+//                //Log.i("infoBlood", "lattitude: "+poiProp.optDouble("lat"));
+//
+//                double latitude = poiProp.optDouble("lat");
+//                double longitude = poiProp.optDouble("lon");
+//                String locationName = poiProp.optString("name");
+//                String townName = poiProp.optString("where:name");
+//
+//                String startDateStr = poiProp.optString("start");
+//                String stopDateStr = poiProp.optString("stop");
+//
+//                Date startDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'CET'").parse(startDateStr);
+//                Date stopDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'CET'").parse(stopDateStr);
+//
+//                pois.addPoi(new InfoPOI(latitude, longitude, locationName, townName, startDate, stopDate));
+//                //Log.i("infoBlood", "date: "+dateFormat.format(d1));
+//
+//                //Log.i("infoBlood", "lattitude: "+poiProp.optString("what"));
+//                //poi.optString("properties");
+//            }
+//        }
+//        catch(Exception e ){
+//            e.printStackTrace();
+//        }
+//    }
 }

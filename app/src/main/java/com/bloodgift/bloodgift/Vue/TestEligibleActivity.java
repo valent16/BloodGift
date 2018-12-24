@@ -7,10 +7,16 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
-import com.bloodgift.bloodgift.Controller.ControleProfil;
+import com.bloodgift.bloodgift.Controller.ProfileController;
 import com.bloodgift.bloodgift.R;
 
 public class TestEligibleActivity extends ActivityWithDrawer {
+    //propriétés
+    private ProfileController controller;
+    private EditText txtAge;
+    private EditText txtPoids;
+    private RadioButton rdHomme;
+    private RadioButton rdFemme;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,19 +24,11 @@ public class TestEligibleActivity extends ActivityWithDrawer {
         setContentView(R.layout.activity_personnal_information);
         initializeView();
         init();
-
     }
 
     protected void initializeView(){
         super.initializeToolBar();
     }
-
-    //propriétés
-    private ControleProfil controle;
-    private EditText txtAge;
-    private EditText txtPoids;
-    private RadioButton rdHomme;
-    private RadioButton rdFemme;
 
     /**
      * Initialisation des liens avec les objets graphiques
@@ -40,7 +38,7 @@ public class TestEligibleActivity extends ActivityWithDrawer {
         txtPoids = findViewById(R.id.txtPoids);
         rdHomme = findViewById(R.id.rdHomme);
         rdFemme = findViewById(R.id.rdFemme);
-        this.controle = ControleProfil.getInstance(this);
+        this.controller = new ProfileController(this);
         ecouteBouton();
         recupProfil();
     }
@@ -85,11 +83,11 @@ public class TestEligibleActivity extends ActivityWithDrawer {
      */
     private void afficheResult(Integer age, Integer poids, Integer sexe){
         //création du profil et récupération du message résultat
-        this.controle.créerProfil(age,poids,sexe,this);
-        String message = this.controle.getMessage();
+        controller.createProfile(age,poids,sexe);
+        String message = controller.getMessage();
 
         //affichage
-        Toast.makeText(TestEligibleActivity.this, this.controle.getMessage(),Toast.LENGTH_SHORT).show();
+        Toast.makeText(TestEligibleActivity.this, controller.getMessage(),Toast.LENGTH_SHORT).show();
 
     }
 
@@ -97,11 +95,11 @@ public class TestEligibleActivity extends ActivityWithDrawer {
      * Récupération du profil au lencement du test d'éligibilité
      */
     private void recupProfil(){
-        if (controle.getAge() != null){
-            txtAge.setText(controle.getAge().toString());
-            txtPoids.setText(controle.getPoids().toString());
+        if (controller.getAge() != null){
+            txtAge.setText(controller.getAge().toString());
+            txtPoids.setText(controller.getPoids().toString());
             rdFemme.setChecked(true);
-            if(controle.getSexe()==1){
+            if(controller.getSexe()==1){
                 rdHomme.setChecked(true);
             }
             //((Button)findViewById(R.id.btnEligible)).performClick();

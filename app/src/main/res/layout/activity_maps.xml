@@ -26,8 +26,17 @@
                 android:text="@string/app_name"
                 android:textColor="#FFFFFF"
                 android:textSize="25dp" />
-        </android.support.v7.widget.Toolbar>
 
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/refreshMap"
+                android:drawableEnd="@drawable/ic_refresh"
+                android:paddingRight="12sp"
+                android:background="@null"
+                android:layout_gravity="end"/>
+        </android.support.v7.widget.Toolbar>
+<!--
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -44,7 +53,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
         </LinearLayout>
-
+-->
         <com.google.android.gms.maps.MapView
             android:id="@+id/mapView"
             android:layout_width="match_parent"
