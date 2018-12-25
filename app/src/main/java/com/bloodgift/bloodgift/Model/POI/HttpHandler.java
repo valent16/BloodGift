@@ -1,4 +1,4 @@
-package com.bloodgift.bloodgift.Controller;
+package com.bloodgift.bloodgift.Model.POI;
 
 import android.util.Log;
 

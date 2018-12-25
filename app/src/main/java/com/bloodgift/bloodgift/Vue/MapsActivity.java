@@ -1,6 +1,13 @@
 package com.bloodgift.bloodgift.Vue;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -31,6 +38,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallback {
+
+
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
     //Android view where the map is loaded
@@ -63,7 +72,7 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
         mapView.getMapAsync(this);
     }
 
-    protected void initializeView(){
+    protected void initializeView() {
         super.initializeToolBar();
     }
 
@@ -71,7 +80,14 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
         gmap.setMinZoomPreference(10);
-        LatLng ny = new LatLng(48.866667, 2.33333);
+
+        //Sets the camera view:
+//        double longitude = controller.getCurrentLongitude();
+//        double latitude = controller.getCurrentLatitude();
+        double latitude = controller.getDefaultLatitude();
+        double longitude = controller.getDefaultLongitude();
+
+        LatLng ny = new LatLng(latitude, longitude);
         gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
 
         if (gmap != null) {
@@ -95,7 +111,7 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
             });
         }
 
-        POIDAO poiDAO= new POIDAO(this);
+        POIDAO poiDAO = new POIDAO(this);
         updateMarkers(poiDAO.getAllPOI());
     }
 
@@ -106,13 +122,23 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
     }
 
     /**
-     * update all the markers on the Google map.
+     * Updatse all the markers on the Google map.
+     * @param collectionPOI
      */
-    public void updateMarkers(CollectionPOI collectionPOI){
+    public void updateMarkers(CollectionPOI collectionPOI) {
         gmap.clear();
 
-        ArrayList<InfoPOI> listPOI = collectionPOI.getPOIInRadius(48.866667, 2.33333, 20000);
-        Log.i("infoBlood", "nombre de centre à proximité: "+listPOI.size());
+        //double longitude = controller.getCurrentLongitude();
+        //double latitude = controller.getCurrentLatitude();
+
+//        Log.i("infoBlood", "longitude: "+longitude);
+//        Log.i("infoBlood", "latitude: "+latitude);
+
+        //Define the location of the user. Take Paris as basis Location
+
+        //ArrayList<InfoPOI> listPOI = collectionPOI.getPOIInRadius(latitude, longitude, 20000);
+
+        ArrayList<InfoPOI> listPOI = collectionPOI.getAllPOI();
 
         for( InfoPOI poi: listPOI){
             LatLng location = new LatLng(poi.getLatitude(), poi.getLongitude());
@@ -128,6 +154,17 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
             );
             marker.setTag(0);
         }
+    }
+
+    /**
+     * Updates the camera location view
+     * @param latitude
+     * @param longitude
+     */
+    public void updateCameraLocation(double latitude, double longitude){
+        Log.i("infoBlood", "update de la position de caméra");
+        LatLng ny = new LatLng(latitude, longitude);
+        gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
     }
 
     /**

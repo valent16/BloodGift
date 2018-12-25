@@ -27,4 +27,8 @@ public class CollectionPOI {
         }
         return poiInRadius;
     }
+
+    public ArrayList<InfoPOI> getAllPOI(){
+        return pois;
+    }
 }

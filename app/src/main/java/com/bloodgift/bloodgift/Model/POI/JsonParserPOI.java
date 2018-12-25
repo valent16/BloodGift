@@ -1,23 +1,15 @@
-package com.bloodgift.bloodgift.Controller;
+package com.bloodgift.bloodgift.Model.POI;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.bloodgift.bloodgift.Model.DAO.POIDAO;
-import com.bloodgift.bloodgift.Model.POI.CollectionPOI;
-import com.bloodgift.bloodgift.Model.POI.InfoPOI;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.Marker;
-import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.InputStream;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class JsonParserPOI {
