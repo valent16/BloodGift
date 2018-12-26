@@ -29,6 +29,10 @@ public class Database extends SQLiteOpenHelper{
         //Erase the previous Profile table, create a new one
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+ ProfileDAO.getProfileTableName());
         sqLiteDatabase.execSQL(ProfileDAO.getProfileTable());
+
+        //Erase the previous User table, create a new one
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+UserDAO.getUserTableName());
+        sqLiteDatabase.execSQL(UserDAO.getUserTable());
     }
 
     @Override

@@ -79,5 +79,4 @@ public class JsonParserPOI {
         }
         return pois;
     }
-
 }
