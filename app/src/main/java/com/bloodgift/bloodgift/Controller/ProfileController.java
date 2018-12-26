@@ -5,6 +5,7 @@ import android.content.Context;
 import com.bloodgift.bloodgift.Model.DAO.ProfileDAO;
 import com.bloodgift.bloodgift.Model.Profile;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public final class ProfileController {
@@ -13,8 +14,6 @@ public final class ProfileController {
 
     private ProfileController instance = null;
     private Profile profile;
-    //private static AccesLocal accesLocal;
-
 
     public ProfileController(Context context) {
         this.context = context;
@@ -23,31 +22,15 @@ public final class ProfileController {
     }
 
     /**
-     * Création de l'instance du controleur en Singleton
-     * @return instance
-     */
-//    public static final ProfileController getInstance(Context context) {
-//        if (ProfileController.instance == null) {
-//            ProfileController.instance = new ProfileController();
-//            //accesLocal = new AccesLocal(context);
-//
-//
-//            profil = profileDAO.getProfile();
-//        }
-//        return ProfileController.instance;
-//    }
-
-    /**
      *  Création du test d'éligibilité
      * @param age en année
      * @param poids en kg
      * @param sexe 1 pour homme et 0 pour femme
      */
-    public void createProfile(Integer age, Integer poids, Integer sexe) {
-        profile = new Profile(new Date(),age, poids, sexe);
+    public void createProfile(Calendar dateSang, Integer age, Integer poids, Integer sexe) {
+        profile = new Profile(new Date(),dateSang, age, poids, sexe);
         ProfileDAO profileDAO = new ProfileDAO(context);
         profileDAO.addProfile(profile);
-//        accesLocal.ajout(profil);
     }
 
     /**
@@ -56,6 +39,14 @@ public final class ProfileController {
      */
     public String getMessage() {
         return profile.getMessage();
+    }
+
+    public Calendar getDateSang(){
+        if (profile == null){
+            return Calendar.getInstance();
+        } else {
+            return profile.getDateSang();
+        }
     }
 
     public Integer getPoids(){

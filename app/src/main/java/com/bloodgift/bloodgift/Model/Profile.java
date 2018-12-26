@@ -1,5 +1,6 @@
 package com.bloodgift.bloodgift.Model;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class Profile {
@@ -11,13 +12,15 @@ public class Profile {
 
     //propriétés
     private Date dateProfile;
+    private Calendar dateSang;
     private Integer weight;
     private Integer age;
     private Integer sex;
     private String message;
 
-    public Profile(Date dateProfile, Integer age, Integer weight, Integer sex) {
+    public Profile(Date dateProfile, Calendar dateSang, Integer age, Integer weight, Integer sex) {
         this.dateProfile = dateProfile;
+        this.dateSang = dateSang;
         this.weight = weight;
         this.age = age;
         this.sex = sex;
@@ -27,6 +30,8 @@ public class Profile {
     public Date getDateProfile() {
         return dateProfile;
     }
+
+    public Calendar getDateSang() { return dateSang; }
 
     public Integer getWeight() {
         return weight;
