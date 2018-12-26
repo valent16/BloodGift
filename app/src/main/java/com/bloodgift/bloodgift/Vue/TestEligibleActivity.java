@@ -23,9 +23,15 @@ import java.util.Calendar;
 
 public class TestEligibleActivity extends ActivityWithDrawer {
 
-    //propriétés datepicker Sang
+    //propriétés datepickers
     public static TextView tvSang;
     public static Calendar dateSang;
+
+    public static TextView tvPlaque;
+    public static Calendar datePlaque;
+
+    public static TextView tvPlasma;
+    public static Calendar datePlasma;
 
     //propriétés
     private ProfileController controller;
@@ -57,11 +63,37 @@ public class TestEligibleActivity extends ActivityWithDrawer {
             c.set(Calendar.DAY_OF_MONTH,day);
             c.set(Calendar.MONTH,month);
             c.set(Calendar.YEAR,year);
-            tvSang.setText("Selected Date: " + c.get(Calendar.DAY_OF_MONTH) + " / " + (c.get(Calendar.MONTH)+1) + " / " + c.get(Calendar.YEAR));
-            dateSang = c;
+            if (modifDate == "Sang"){
+                tvSang.setText("Selected Date: " + c.get(Calendar.DAY_OF_MONTH) + " / " + (c.get(Calendar.MONTH)+1) + " / " + c.get(Calendar.YEAR));
+                dateSang = c;
+            } else if (modifDate == "Plaque"){
+                tvPlaque.setText("Selected Date: " + c.get(Calendar.DAY_OF_MONTH) + " / " + (c.get(Calendar.MONTH)+1) + " / " + c.get(Calendar.YEAR));
+                datePlaque = c;
+            } else {
+                tvPlasma.setText("Selected Date: " + c.get(Calendar.DAY_OF_MONTH) + " / " + (c.get(Calendar.MONTH)+1) + " / " + c.get(Calendar.YEAR));
+                datePlasma = c;
+            }
         }
-
     }
+
+    public static String modifDate;
+
+    public void showDatePickerSang(View v) {
+        modifDate = "Sang";
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(this.getFragmentManager(), "dateSang");
+    }
+    public void showDatePickerPlaque(View v) {
+        modifDate = "Plaque";
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(this.getFragmentManager(), "datePlaque");
+    }
+    public void showDatePickerPlasma(View v) {
+        modifDate = "Plasma";
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(this.getFragmentManager(), "datePlasma");
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +115,9 @@ public class TestEligibleActivity extends ActivityWithDrawer {
         txtPoids = findViewById(R.id.txtPoids);
         rdHomme = findViewById(R.id.rdHomme);
         rdFemme = findViewById(R.id.rdFemme);
-        tvSang = findViewById(R.id.selected_date);
+        tvSang = findViewById(R.id.dateSang);
+        tvPlaque = findViewById(R.id.datePlaque);
+        tvPlasma = findViewById(R.id.datePlasma);
         this.controller = new ProfileController(this);
         recupProfil();
         ecouteBouton();
@@ -91,10 +125,6 @@ public class TestEligibleActivity extends ActivityWithDrawer {
 
     }
 
-    public void showDatePickerDialog(View v) {
-        DialogFragment newFragment = new DatePickerFragment();
-        newFragment.show(this.getFragmentManager(), "datePicker");
-    }
 
 
     /**
@@ -140,7 +170,7 @@ public class TestEligibleActivity extends ActivityWithDrawer {
      */
     private void afficheResult(Integer age, Integer poids, Integer sexe){
         //création du profil et récupération du message résultat
-        controller.createProfile(dateSang, age,poids,sexe);
+        controller.createProfile(dateSang, datePlaque, datePlasma, age,poids,sexe);
 
         //affichage
         Toast.makeText(TestEligibleActivity.this, controller.getMessage(),Toast.LENGTH_SHORT).show();
@@ -151,9 +181,21 @@ public class TestEligibleActivity extends ActivityWithDrawer {
      * Récupération du profil au lencement du test d'éligibilité
      */
     private void recupProfil(){
+
+        //récupération de la date du dernier don de sang
+        dateSang = controller.getDateSang();
+        tvSang.setText("Selected Date: " + dateSang.get(Calendar.DAY_OF_MONTH) + " / " + (dateSang.get(Calendar.MONTH)+1) + " / " + dateSang.get(Calendar.YEAR));
+
+        //récupération de la date du dernier don de plaquette
+        datePlaque = controller.getDatePlaque();
+        tvPlaque.setText("Selected Date: " + datePlaque.get(Calendar.DAY_OF_MONTH) + " / " + (datePlaque.get(Calendar.MONTH)+1) + " / " + datePlaque.get(Calendar.YEAR));
+
+        //récupération de la date du dernier don de plasma
+        datePlasma = controller.getDatePlasma();
+        tvPlasma.setText("Selected Date: " + datePlasma.get(Calendar.DAY_OF_MONTH) + " / " + (datePlasma.get(Calendar.MONTH)+1) + " / " + datePlasma.get(Calendar.YEAR));
+
         if (controller.getAge() != null){
-            dateSang = controller.getDateSang();
-            tvSang.setText("Selected Date: " + dateSang.get(Calendar.DAY_OF_MONTH) + " / " + (dateSang.get(Calendar.MONTH)+1) + " / " + dateSang.get(Calendar.YEAR));
+
             txtAge.setText(controller.getAge().toString());
             txtPoids.setText(controller.getPoids().toString());
             rdFemme.setChecked(true);
