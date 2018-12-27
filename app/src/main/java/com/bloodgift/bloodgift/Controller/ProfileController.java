@@ -7,6 +7,7 @@ import com.bloodgift.bloodgift.Model.Profile;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 public final class ProfileController {
 
@@ -27,8 +28,8 @@ public final class ProfileController {
      * @param poids en kg
      * @param sexe 1 pour homme et 0 pour femme
      */
-    public void createProfile(Calendar dateSang, Integer age, Integer poids, Integer sexe) {
-        profile = new Profile(new Date(),dateSang, age, poids, sexe);
+    public void createProfile(Calendar dateSang, Calendar datePlaque, Calendar datePlasma, Integer age, Integer poids, Integer sexe) {
+        profile = new Profile(new Date(),dateSang, datePlaque, datePlasma, age, poids, sexe);
         ProfileDAO profileDAO = new ProfileDAO(context);
         profileDAO.addProfile(profile);
     }
@@ -43,9 +44,28 @@ public final class ProfileController {
 
     public Calendar getDateSang(){
         if (profile == null){
-            return Calendar.getInstance();
+            Calendar c = new GregorianCalendar(2016,0,1);
+            return c;
         } else {
             return profile.getDateSang();
+        }
+    }
+
+    public Calendar getDatePlaque(){
+        if (profile == null){
+            Calendar c = new GregorianCalendar(2016,0,1);
+            return c;
+        } else {
+            return profile.getDatePlaque();
+        }
+    }
+
+    public Calendar getDatePlasma(){
+        if (profile == null){
+            Calendar c = new GregorianCalendar(2016,0,1);
+            return c;
+        } else {
+            return profile.getDatePlasma();
         }
     }
 

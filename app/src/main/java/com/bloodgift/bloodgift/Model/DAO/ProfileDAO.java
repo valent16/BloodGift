@@ -20,6 +20,10 @@ public class ProfileDAO {
 
     private static String PROFILE_DATESANG = "profileDateSang";
 
+    private static String PROFILE_DATEPLAQUE = "profileDatePlaque";
+
+    private static String PROFILE_DATEPLASMA = "profileDatePlasma";
+
     private static String PROFILE_AGE = "profileAge";
 
     private static String PROFILE_WEIGHT = "profileWeight";
@@ -38,6 +42,8 @@ public class ProfileDAO {
         String profile_table = "CREATE TABLE "+PROFILE_TABLE+" ("
                 + PROFILE_DATE+" TEXT PRIMARY KEY, "
                 + PROFILE_DATESANG+" TEXT NOT NULL, "
+                + PROFILE_DATEPLAQUE+" TEXT NOT NULL, "
+                + PROFILE_DATEPLASMA+" TEXT NOT NULL, "
                 + PROFILE_AGE+" INTEGER NOT NULL, "
                 + PROFILE_WEIGHT+" INTEGER NOT NULL, "
                 + PROFILE_SEX+" INTEGER NOT NULL);";
@@ -48,9 +54,14 @@ public class ProfileDAO {
     public void addProfile(Profile profile){
         ContentValues values = new ContentValues();
         String dateSang = profile.getDateSang().get(Calendar.DAY_OF_MONTH)+"-"+(profile.getDateSang().get(Calendar.MONTH)+1)+"-"+profile.getDateSang().get(Calendar.YEAR);
+        String datePlaque = profile.getDatePlaque().get(Calendar.DAY_OF_MONTH)+"-"+(profile.getDatePlaque().get(Calendar.MONTH)+1)+"-"+profile.getDatePlaque().get(Calendar.YEAR);
+        String datePlasma = profile.getDatePlasma().get(Calendar.DAY_OF_MONTH)+"-"+(profile.getDatePlasma().get(Calendar.MONTH)+1)+"-"+profile.getDatePlasma().get(Calendar.YEAR);
+
 
         values.put(PROFILE_DATE, profile.getDateProfile().toString());
         values.put(PROFILE_DATESANG, dateSang);
+        values.put(PROFILE_DATEPLAQUE, datePlaque);
+        values.put(PROFILE_DATEPLASMA, datePlasma);
         values.put(PROFILE_AGE, profile.getAge());
         values.put(PROFILE_WEIGHT, profile.getWeight());
         values.put(PROFILE_SEX, profile.getSex());
@@ -74,10 +85,12 @@ public class ProfileDAO {
         if (!cursor.isAfterLast()){
             Date date = new Date();
             Calendar dateSang = ConvertDate.ConvertStringToCalendar(cursor.getString(1));
-            Integer age = cursor.getInt(2);
-            Integer poids = cursor.getInt(3);
-            Integer sexe = cursor.getInt(4);
-            profile = new Profile(date, dateSang, age, poids, sexe);
+            Calendar datePlaque = ConvertDate.ConvertStringToCalendar(cursor.getString(2));
+            Calendar datePlasma = ConvertDate.ConvertStringToCalendar(cursor.getString(3));
+            Integer age = cursor.getInt(4);
+            Integer poids = cursor.getInt(5);
+            Integer sexe = cursor.getInt(6);
+            profile = new Profile(date, dateSang, datePlaque, datePlasma, age, poids, sexe);
         }
         cursor.close();
         return profile;

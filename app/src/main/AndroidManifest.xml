@@ -31,6 +31,9 @@
             android:value="AIzaSyCG5vAqftOvCDjmM61OYZ2J7i8bbrGxgno" />
 
         <activity android:name=".Vue.LoginActivity" />
-        <activity android:name=".Vue.SignUpActivity"></activity>
+        <activity android:name=".Vue.SignUpActivity" />
+        <activity android:name=".Vue.TestEligibleActivity2" />
+        <activity android:name=".Vue.TestEligibleActivityResultat"></activity>
     </application>
+
 </manifest>

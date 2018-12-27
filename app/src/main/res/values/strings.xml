@@ -16,10 +16,10 @@
     <string name="texte_accueil">Salut à toi jeune donneur de sang !\nJe sang qu\'on va bien s\'entendre tout les deux ! Tu fais bien de t\'intéresser au dong du sang, c\'est vraiment quelque chose d\'important pour de nombreux patients...
     \n\n Maintenant une petite citation de rap : \n\n\"On est pas du même groupe frangin\n quand j\'rappe je pisse le sens\n je vie de ma plume, l\'instru me dit "A+ !"\n après la prise de sample\" Assassame</string>
     <string name="image_d_accueil">Image d\'accueil</string>
-    <string name="eligibility_page">Vos données fournies lors de ce test seront suceptibles d\'être enregistrées pour vous fournir un service automatiques futur</string>
+    <string name="eligibility_page">Vos données fournies lors de ce test seront enregistrées en local sur votre téléphone pour vous fournir un service automatique futur.</string>
 
     <string name="erase_sign_up">La création d\'un nouvel utilisateur supprimera l\'ancien</string>
     <string name="cancel">Annuler</string>
     <string name="confirm">Valider</string>
-    <string name="date_pick">Changer</string>
+    <string name="date_pick">Modifier</string>
 </resources>
