@@ -7,9 +7,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/logo_bloodgift"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/logo_bloodgift"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity android:name=".Vue.HomePageActivity">
@@ -31,6 +31,9 @@
             android:value="AIzaSyCG5vAqftOvCDjmM61OYZ2J7i8bbrGxgno" />
 
         <activity android:name=".Vue.LoginActivity" />
-        <activity android:name=".Vue.SignUpActivity"></activity>
+        <activity android:name=".Vue.SignUpActivity" />
+        <activity android:name=".Vue.TestEligibleActivity2" />
+        <activity android:name=".Vue.TestEligibleActivityResultat"/>
     </application>
+
 </manifest>
