@@ -49,10 +49,14 @@
             android:orientation="vertical">
 
             <TextView
-                android:layout_width="260dp"
-                android:layout_height="wrap_content"
+                android:id="@+id/tvHomePage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:autoText="false"
                 android:fontFamily="sans-serif-smallcaps"
+                android:gravity="center_vertical|center_horizontal"
                 android:text="@string/texte_accueil"
                 android:textColor="@color/balck"
                 android:textStyle="italic"

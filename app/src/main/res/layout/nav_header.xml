@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:contentDescription="@string/nav_header_desc"
-                android:src="@mipmap/ic_launcher_round" />
+                android:src="@mipmap/logo_bloodgift" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

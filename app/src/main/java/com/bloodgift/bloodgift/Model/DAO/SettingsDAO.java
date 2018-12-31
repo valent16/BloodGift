@@ -16,7 +16,10 @@ import java.util.Set;
 
 public class SettingsDAO {
 
-    private static String NOTIF = "notif";
+    private static String NOTIF_SANG = "notifSang";
+    private static String NOTIF_PLAQUETTE = "notifPlaquette";
+    private static String NOTIF_PLASMA = "notifPlasma";
+
     private static String SETTINGS_DATE = "settingsDate";
     private static String SETTINGS_TABLE = "settings";
 
@@ -33,7 +36,10 @@ public class SettingsDAO {
     public static String getSettingsTable(){
         final String table_settings = "CREATE TABLE " + SETTINGS_TABLE + "("
                 + SETTINGS_DATE +" TEXT PRIMARY KEY, "
-                + NOTIF + " INTEGER );";
+                + NOTIF_SANG + " INTEGER, "
+                + NOTIF_PLAQUETTE + " INTEGER, "
+                + NOTIF_PLASMA + " INTEGER );";
+
         return table_settings;
     }
 
@@ -41,7 +47,9 @@ public class SettingsDAO {
         ContentValues values = new ContentValues();
 
         values.put(SETTINGS_DATE, settings.getDateSettings().toString());
-        values.put(NOTIF, settings.getNotif());
+        values.put(NOTIF_SANG, settings.getNotifSang());
+        values.put(NOTIF_PLAQUETTE, settings.getNotifPlaquette());
+        values.put(NOTIF_PLASMA, settings.getNotifPlasma());
 
         Database db = Database.getInstance(context);
         db.getWritableDatabase().insert(SETTINGS_TABLE, null, values);
@@ -56,8 +64,10 @@ public class SettingsDAO {
         cursor.moveToLast();
         if (!cursor.isAfterLast()) {
             Date date = new Date();
-            Integer notif = cursor.getInt(1);
-            settings = new Settings(date, notif);
+            Integer notifSang = cursor.getInt(1);
+            Integer notifPlaquette = cursor.getInt(2);
+            Integer notifPlasma = cursor.getInt(3);
+            settings = new Settings(date, notifSang, notifPlaquette, notifPlasma);
         }
         cursor.close();
         return settings;

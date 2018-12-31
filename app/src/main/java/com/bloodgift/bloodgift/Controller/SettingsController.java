@@ -1,6 +1,7 @@
 package com.bloodgift.bloodgift.Controller;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import com.bloodgift.bloodgift.Model.DAO.ProfileDAO;
 import com.bloodgift.bloodgift.Model.DAO.SettingsDAO;
@@ -24,17 +25,33 @@ public class SettingsController {
     }
 
 
-    public void createSettings(Integer notif) {
-        settings = new Settings(new Date(),notif);
+    public void createSettings(Integer notifSang, Integer notifPlaquette, Integer notifPlasma) {
+        settings = new Settings(new Date(),notifSang, notifPlaquette, notifPlasma);
         SettingsDAO settingsDAO = new SettingsDAO(context);
         settingsDAO.addSettings(settings);
     }
 
-    public Integer getNotif(){
+    public Integer getNotifSang(){
         if(settings == null){
-            return null;
+            return 0;
         } else {
-            return settings.getNotif();
+            return settings.getNotifSang();
+        }
+    }
+
+    public Integer getNotifPlaquette(){
+        if(settings == null){
+            return 0;
+        } else {
+            return settings.getNotifPlaquette();
+        }
+    }
+
+    public Integer getNotifPlasma(){
+        if(settings == null){
+            return 0;
+        } else {
+            return settings.getNotifPlasma();
         }
     }
 

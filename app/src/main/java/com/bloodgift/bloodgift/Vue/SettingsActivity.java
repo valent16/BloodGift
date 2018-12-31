@@ -24,6 +24,8 @@ public class SettingsActivity extends ActivityWithDrawer {
 
     private Button modifierSettings;
     private Switch swNotifSang;
+    private Switch swNotifPlaquette;
+    private Switch swNotifPlasma;
     private TextView tvSettings;
     private SettingsController controller;
 
@@ -38,6 +40,8 @@ public class SettingsActivity extends ActivityWithDrawer {
         tvSettings = findViewById(R.id.tvSettings);
         modifierSettings = (Button) findViewById(R.id.notifSang);
         swNotifSang = (Switch) findViewById(R.id.switchNotifSang);
+        swNotifPlaquette = (Switch) findViewById(R.id.switchNotifPlaquette);
+        swNotifPlasma = (Switch) findViewById(R.id.switchNotifPlasma);
 
         strSettings = "<h1><font color=\"#DF0101\">Vos Préférences :</font></h1>";
         tvSettings.setText(Html.fromHtml(strSettings));
@@ -55,22 +59,38 @@ public class SettingsActivity extends ActivityWithDrawer {
             public void onClick(View view) {
 
                 Integer notifSang = 0;
-                if(swNotifSang.isChecked()){
+                Integer notifPlaquette = 0;
+                Integer notifPlasma = 0;
+                if (swNotifSang.isChecked()) {
                     notifSang = 1;
                 }
+                if (swNotifPlaquette.isChecked()) {
+                    notifPlaquette = 1;
+                }
+                if (swNotifPlasma.isChecked()) {
+                    notifPlasma = 1;
+                }
 
-                controller.createSettings(notifSang);
-                Toast.makeText(SettingsActivity.this, "Vos préférences sont enregistrées !",Toast.LENGTH_LONG).show();
+                controller.createSettings(notifSang, notifPlaquette, notifPlasma);
+                if (notifPlaquette == 1 || notifPlasma == 1 || notifSang == 1) {
+                    Toast.makeText(SettingsActivity.this, "Vos préférences sont enregistrées ! Les notifications seront envoyées à partir du prochain test.", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(SettingsActivity.this, "Vos préférences sont enregistrées ! Vous ne recevrez pas de notification pour les prochains test.", Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
 
     private void recupSettings(){
 
-        if (controller.getNotif() != null){
-            if(controller.getNotif()==1){
-                swNotifSang.setChecked(true);
-            }
+        if (controller.getNotifSang() == 1){
+            swNotifSang.setChecked(true);
+        }
+        if(controller.getNotifPlaquette() == 1){
+            swNotifPlaquette.setChecked(true);
+        }
+        if(controller.getNotifPlasma() == 1){
+            swNotifPlasma.setChecked(true);
         }
     }
 }

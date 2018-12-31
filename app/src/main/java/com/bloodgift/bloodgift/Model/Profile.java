@@ -157,8 +157,14 @@ public class Profile {
     public boolean donSangTropProche(){
         Calendar today = Calendar.getInstance();
         //On ne peut pas donner son sang avant 8 semaines après un don de sang, 4 semaines après un don de plaquettes, 2 semaines après un don de plasma
-        if (daysBetween(today,dateSang)<56 || daysBetween(today,datePlaque)<28 || daysBetween(today,datePlasma)< 14){
+        if (daysBetween(today,dateSang)<56){
             seFaireNotifier(56 - daysBetween(today,dateSang));
+            return true;
+        } else if (daysBetween(today,datePlaque)<28){
+            seFaireNotifier(28 - daysBetween(today,datePlaque));
+            return true;
+        } else if (daysBetween(today,datePlasma)< 14){
+            seFaireNotifier(14 - daysBetween(today,datePlasma));
             return true;
         }
         return false;
@@ -212,8 +218,8 @@ public class Profile {
     public static void seFaireNotifier(Integer joursAvantDonSang){
 
         SettingsController controller = new SettingsController(context);
-        if (controller.getNotif() != null){
-            if(controller.getNotif()==1){
+        if (controller.getNotifSang() != null){
+            if(controller.getNotifSang()==1){
 
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(Calendar.HOUR_OF_DAY,8);

@@ -52,9 +52,32 @@
                     android:id="@+id/switchNotifSang"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:checked="false"
                     android:paddingTop="20dp"
                     android:paddingBottom="20dp"
-                    android:text="Me notifier lorsque je peux donner de nouveau du sang" />
+                    android:text="Me notifier lorsque je peux donner de nouveau du sang"
+                    android:textSize="18sp" />
+
+                <Switch
+                    android:id="@+id/switchNotifPlaquette"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:text="Me notifier lorsque je peux donner de nouveau des plaquettes"
+                    android:textSize="18sp" />
+
+                <Switch
+                    android:id="@+id/switchNotifPlasma"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="false"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="20dp"
+                    android:text="Me notifier lorsque je peux donner de nouveau du plasma"
+                    android:textSize="18sp" />
+
             </LinearLayout>
 
             <Button

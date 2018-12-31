@@ -7,18 +7,30 @@ public class Settings {
 
     //propriétés
     private Date dateSettings;
-    private Integer notif;
+    private Integer notifSang;
+    private Integer notifPlaquette;
+    private Integer notifPlasma;
 
-    public Settings(Date dateSettings, Integer notif) {
+    public Settings(Date dateSettings, Integer notifSang, Integer notifPlaquette, Integer notifPlasma) {
         this.dateSettings = dateSettings;
-        this.notif = notif;
+        this.notifSang = notifSang;
+        this.notifPlaquette = notifPlaquette;
+        this.notifPlasma = notifPlasma;
     }
 
     public Date getDateSettings() {
         return dateSettings;
     }
 
-    public Integer getNotif() {
-        return notif;
+    public Integer getNotifSang() {
+        return notifSang;
+    }
+
+    public Integer getNotifPlaquette() {
+        return notifPlaquette;
+    }
+
+    public Integer getNotifPlasma() {
+        return notifPlasma;
     }
 }
