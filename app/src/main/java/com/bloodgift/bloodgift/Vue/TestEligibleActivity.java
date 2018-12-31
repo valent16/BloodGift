@@ -234,7 +234,6 @@ public class TestEligibleActivity extends ActivityWithDrawer {
             if(controller.getSexe()==1){
                 rdHomme.setChecked(true);
             }
-            //((Button)findViewById(R.id.btnEligible)).performClick();
         }
     }
 }

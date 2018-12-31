@@ -5,6 +5,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.bloodgift.bloodgift.Model.Settings;
+
 public class Database extends SQLiteOpenHelper{
 
     private static final String DATABASE_NAME = "bloodgift.sb";
@@ -33,6 +35,10 @@ public class Database extends SQLiteOpenHelper{
         //Erase the previous User table, create a new one
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+UserDAO.getUserTableName());
         sqLiteDatabase.execSQL(UserDAO.getUserTable());
+
+        //Erase the previous User table, create a new one
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+SettingsDAO.getSettingsTableName());
+        sqLiteDatabase.execSQL(SettingsDAO.getSettingsTable());
     }
 
     @Override

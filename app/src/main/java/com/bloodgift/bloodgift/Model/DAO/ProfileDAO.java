@@ -90,7 +90,7 @@ public class ProfileDAO {
             Integer age = cursor.getInt(4);
             Integer poids = cursor.getInt(5);
             Integer sexe = cursor.getInt(6);
-            profile = new Profile(date, dateSang, datePlaque, datePlasma, age, poids, sexe);
+            profile = new Profile(date, context, dateSang, datePlaque, datePlasma, age, poids, sexe);
         }
         cursor.close();
         return profile;

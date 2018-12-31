@@ -29,7 +29,7 @@ public final class ProfileController {
      * @param sexe 1 pour homme et 0 pour femme
      */
     public void createProfile(Calendar dateSang, Calendar datePlaque, Calendar datePlasma, Integer age, Integer poids, Integer sexe) {
-        profile = new Profile(new Date(),dateSang, datePlaque, datePlasma, age, poids, sexe);
+        profile = new Profile(new Date(), context, dateSang, datePlaque, datePlasma, age, poids, sexe);
         ProfileDAO profileDAO = new ProfileDAO(context);
         profileDAO.addProfile(profile);
     }
