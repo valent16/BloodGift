@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bloodgift.bloodgift.Model.DAO.ProfileDAO;
+import com.bloodgift.bloodgift.Model.DAO.SettingsDAO;
 import com.bloodgift.bloodgift.Model.DAO.UserDAO;
 import com.bloodgift.bloodgift.Model.ToolBox;
 import com.bloodgift.bloodgift.Model.User;
@@ -20,22 +22,26 @@ public class SignUpController {
     }
 
     public void signUp(String userName, String password, String confirmPassword){
+        Log.i("infoBlood", password);
+        Log.i("infoBlood", confirmPassword);
+
         if (password.equals(confirmPassword)){
             user = new User (ToolBox.getHash(userName), ToolBox.getHash(password));
 
             UserDAO userDAO = new UserDAO(activity);
-            if (!userDAO.isThereUser()){
+            if (userDAO.isThereUser()){
+                activity.createValidationFragment();
+                return;
+            }else{
                 createUser();
                 login("Compte créé");
                 return;
             }
 
-            if (userDAO.doesUserExist(user)){
-                activity.createValidationFragment();
-                return;
-            }
+
+        }else {
+            activity.displaySignUpError("Erreur au niveau du mot de passe");
         }
-        activity.displaySignUpError("Erreur au niveau du mot de passe");
     }
 
     public void login(String message){
@@ -50,5 +56,11 @@ public class SignUpController {
         UserDAO userDAO = new UserDAO(activity);
         userDAO.removeAllUser();
         userDAO.addUser(user);
+
+        ProfileDAO profileDAO = new ProfileDAO(activity);
+        profileDAO.removeProfile();
+
+        SettingsDAO settingsDAO = new SettingsDAO(activity);
+        settingsDAO.removeSettings();
     }
 }

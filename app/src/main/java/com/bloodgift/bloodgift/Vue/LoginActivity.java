@@ -33,7 +33,6 @@ public class LoginActivity extends AppCompatActivity {
 
         controller = new LoginController(this);
 
-
         //defines the listener of the login button
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +50,11 @@ public class LoginActivity extends AppCompatActivity {
                 controller.signUp();
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 
     public void connectionFailed(){

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.bloodgift.bloodgift.R;
 import com.bloodgift.bloodgift.Vue.HomePageActivity;
+import com.bloodgift.bloodgift.Vue.LoginActivity;
 import com.bloodgift.bloodgift.Vue.MapsActivity;
 import com.bloodgift.bloodgift.Vue.TestEligibleActivity;
 import com.bloodgift.bloodgift.Vue.SettingsActivity;
@@ -45,6 +46,9 @@ public class MenuController {
                         case R.id.nav_home:
                             display_Home_Page();
                             return true;
+                        case R.id.nav_deconnection:
+                            app_deconnection();
+                            return true;
                         default:
                             return false;
                     }
@@ -74,6 +78,12 @@ public class MenuController {
     private void display_Home_Page(){
         Toast.makeText(activity, "Page d'accueil", Toast.LENGTH_LONG).show();
         Intent intent = new Intent().setClass(activity,HomePageActivity.class);
+        activity.startActivity(intent);
+    }
+
+    private void app_deconnection(){
+        Toast.makeText(activity, "Déconnexion", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent().setClass(activity,LoginActivity.class);
         activity.startActivity(intent);
     }
 }

@@ -1,15 +1,20 @@
 package com.bloodgift.bloodgift.Vue;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -54,6 +59,8 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
 
     private MapController controller;
 
+    private RelativeLayout containerView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +77,8 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
+
+        containerView = (RelativeLayout) findViewById(R.id.container);
     }
 
     protected void initializeView() {
@@ -165,6 +174,46 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
         Log.i("infoBlood", "update de la position de caméra");
         LatLng ny = new LatLng(latitude, longitude);
         gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MapController.MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        //Request location updates:
+                        //locationManager.requestLocationUpdates(provider, 400, 1, this);
+                    }
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+        }
+    }
+
+
+    public void explainPermission()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Cette permission est nécessaire pour localiser votre position pour centrer la caméra de Maps").setTitle("Permission localisation");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        controller.requestLocationPermission();
+                    }
+                }
+        );
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     /**
