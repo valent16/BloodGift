@@ -4,12 +4,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
 import com.bloodgift.bloodgift.AlarmReceiver;
 import com.bloodgift.bloodgift.Controller.SettingsController;
 import com.bloodgift.bloodgift.MyApplication;
-import com.bloodgift.bloodgift.Vue.TestEligibleActivity;
 
 import java.util.Calendar;
 import java.util.Date;

@@ -131,52 +131,6 @@ public class MapController implements LocationListener {
         return PARIS_LONGITUDE;
     }
 
-    /**
-     * Gets the current user longitude. If the geolocalisation is not activated, returns the longitude of Paris
-     * @return longitude of the user
-     */
-//    public double getCurrentLongitude(){
-//        LocationManager lm = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-//        double longitude;
-//
-//        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-////          longitude = location.getLongitude();
-//            longitude = 0;
-//            if (longitude == 0){
-//                return PARIS_LONGITUDE;
-//            }else{
-//                return longitude;
-//            }
-//        }else{
-//            return PARIS_LONGITUDE;
-//        }
-//    }
-
-    /**
-     * Gets the current user latitude. If the geolocalisation is not activated, returns the latitude of Paris
-     * @return latitude of the user
-     */
-//    public double getCurrentLatitude(){
-//        LocationManager lm = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-//        double latitude;
-//
-//        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//            lm.requestLocationUpdates(lm.GPS_PROVIDER, 0, 0, this);
-//            //GPSTracker tracker = new GPSTracker();
-////            latitude = location.getLatitude();
-//            latitude = 0;
-//            if (latitude == 0){
-//                return PARIS_LATIDUDE;
-//            }else{
-//                return latitude;
-//            }
-//        }else{
-//            return PARIS_LATIDUDE;
-//        }
-//    }
-
     @Override
     public void onLocationChanged(Location location) {
 
