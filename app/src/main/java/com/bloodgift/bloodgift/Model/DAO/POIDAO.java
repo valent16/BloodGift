@@ -47,8 +47,8 @@ public class POIDAO {
     public static String getPOITable(){
         final String table_poi_create =
             "CREATE TABLE " + POI_TABLE + "(" +
-                    LATITUDE + " DOUBLE,"  +
-                    LONGITUDE + " DOUBLE, " +
+                    LATITUDE + " DOUBLE NOT NULL,"  +
+                    LONGITUDE + " DOUBLE NOT NULL, " +
                     LOCATION_NAME + " TEXT, " +
                     TOWN_NAME +" TEXT, " +
                     START_DATE+" VARCHAR(26), " +

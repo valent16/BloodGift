@@ -51,6 +51,7 @@ public class SettingsDAO {
         values.put(NOTIF_PLAQUETTE, settings.getNotifPlaquette());
         values.put(NOTIF_PLASMA, settings.getNotifPlasma());
 
+        removeSettings();
         Database db = Database.getInstance(context);
         db.getWritableDatabase().insert(SETTINGS_TABLE, null, values);
     }
@@ -71,5 +72,14 @@ public class SettingsDAO {
         }
         cursor.close();
         return settings;
+    }
+
+    /**
+     * Removes the settings from the database.
+     * Called when a new user is created to erase data on the previous user
+     */
+    public void removeSettings(){
+        Database db = Database.getInstance(context);
+        db.getWritableDatabase().delete(SETTINGS_TABLE, null, null);
     }
 }

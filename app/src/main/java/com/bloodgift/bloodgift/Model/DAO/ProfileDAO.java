@@ -66,6 +66,7 @@ public class ProfileDAO {
         values.put(PROFILE_WEIGHT, profile.getWeight());
         values.put(PROFILE_SEX, profile.getSex());
 
+        removeProfile();
         Database db = Database.getInstance(context);
         db.getWritableDatabase().insert(PROFILE_TABLE, null, values);
 //        String req = "insert into profil (dateProfil, age, poids, sexe) values ";
@@ -94,6 +95,15 @@ public class ProfileDAO {
         }
         cursor.close();
         return profile;
+    }
+
+    /**
+     * Removes the profile from the database.
+     * Called when a new user is created to erase data on the previous user
+     */
+    public void removeProfile(){
+        Database db = Database.getInstance(context);
+        db.getWritableDatabase().delete(PROFILE_TABLE, null, null);
     }
 
 }

@@ -3,10 +3,14 @@ package com.bloodgift.bloodgift.Model.POI;
 import java.util.ArrayList;
 
 public class CollectionPOI {
-    ArrayList<InfoPOI> pois = new ArrayList<InfoPOI>();
+    private ArrayList<InfoPOI> pois = new ArrayList<InfoPOI>();
 
     public void addPoi(InfoPOI poi){
         this.pois.add(poi);
+    }
+
+    public ArrayList<InfoPOI> getAllPOI(){
+        return pois;
     }
 
     /**
@@ -26,9 +30,5 @@ public class CollectionPOI {
             }
         }
         return poiInRadius;
-    }
-
-    public ArrayList<InfoPOI> getAllPOI(){
-        return pois;
     }
 }

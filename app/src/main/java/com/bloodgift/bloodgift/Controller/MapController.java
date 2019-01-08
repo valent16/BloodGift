@@ -11,6 +11,7 @@ import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,7 @@ import com.bloodgift.bloodgift.R;
 import com.bloodgift.bloodgift.Vue.MapsActivity;
 
 public class MapController implements LocationListener {
+    public static final int MY_PERMISSIONS_REQUEST_LOCATION = 99;
     /**
      * Path of the Json file
      */
@@ -94,8 +96,24 @@ public class MapController implements LocationListener {
         LocationManager lm = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
         if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
+        }else{
+            if(ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_FINE_LOCATION) || ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.ACCESS_COARSE_LOCATION))
+            {
+                activity.explainPermission();
+            }else{
+                activity.explainPermission();
+            }
         }
     }
+
+    /**
+     * Requests the permissions for locations
+     */
+    public void requestLocationPermission(){
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+        ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSIONS_REQUEST_LOCATION);
+    }
+
 
     /**
      *  Method used to refresh the database with the download of the new JSON file
@@ -112,52 +130,6 @@ public class MapController implements LocationListener {
     public double getDefaultLongitude(){
         return PARIS_LONGITUDE;
     }
-
-    /**
-     * Gets the current user longitude. If the geolocalisation is not activated, returns the longitude of Paris
-     * @return longitude of the user
-     */
-//    public double getCurrentLongitude(){
-//        LocationManager lm = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-//        double longitude;
-//
-//        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-////          longitude = location.getLongitude();
-//            longitude = 0;
-//            if (longitude == 0){
-//                return PARIS_LONGITUDE;
-//            }else{
-//                return longitude;
-//            }
-//        }else{
-//            return PARIS_LONGITUDE;
-//        }
-//    }
-
-    /**
-     * Gets the current user latitude. If the geolocalisation is not activated, returns the latitude of Paris
-     * @return latitude of the user
-     */
-//    public double getCurrentLatitude(){
-//        LocationManager lm = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE);
-//        double latitude;
-//
-//        if (ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-//            Location location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//            lm.requestLocationUpdates(lm.GPS_PROVIDER, 0, 0, this);
-//            //GPSTracker tracker = new GPSTracker();
-////            latitude = location.getLatitude();
-//            latitude = 0;
-//            if (latitude == 0){
-//                return PARIS_LATIDUDE;
-//            }else{
-//                return latitude;
-//            }
-//        }else{
-//            return PARIS_LATIDUDE;
-//        }
-//    }
 
     @Override
     public void onLocationChanged(Location location) {

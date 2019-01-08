@@ -31,8 +31,8 @@ public class UserDAO {
 
     public static String getUserTable(){
         final String table_user = "CREATE TABLE " + USER_TABLE + "(" +
-                USER_NAME + " VARCHAR(128),"  +
-                PASSWORD + " VARCHAR(128));";
+                USER_NAME + " VARCHAR(128) PRIMARY KEY,"  +
+                PASSWORD + " VARCHAR(128) NOT NULL);";
         return table_user;
     }
 

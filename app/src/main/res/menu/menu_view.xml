@@ -17,5 +17,9 @@
             android:id="@+id/nav_notification"
             android:icon="@drawable/ic_notification"
             android:title="@string/notification_menu" />
+        <item
+            android:id="@+id/nav_deconnection"
+            android:icon="@drawable/ic_disconnection"
+            android:title="Deconnexion"/>
     </group>
 </menu>

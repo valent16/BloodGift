@@ -17,11 +17,6 @@ public class User {
      */
     private String password;
 
-    /**
-     * user mail, must be hashed
-     */
-    private String mail;
-
     public String getUserName() {
         return userName;
     }

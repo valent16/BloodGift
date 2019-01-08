@@ -1,15 +1,20 @@
 package com.bloodgift.bloodgift.Vue;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,8 +43,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallback {
-
-
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
     //Android view where the map is loaded
@@ -48,11 +51,9 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
     //interaction with the map
     private GoogleMap gmap;
 
-    private Marker troyes;
-
-    private TextView text;
-
     private MapController controller;
+
+    private RelativeLayout containerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,8 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
         mapView = findViewById(R.id.mapView);
         mapView.onCreate(mapViewBundle);
         mapView.getMapAsync(this);
+
+        containerView = (RelativeLayout) findViewById(R.id.container);
     }
 
     protected void initializeView() {
@@ -122,21 +125,11 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
     }
 
     /**
-     * Updatse all the markers on the Google map.
+     * Update all the markers on the Google map.
      * @param collectionPOI
      */
     public void updateMarkers(CollectionPOI collectionPOI) {
         gmap.clear();
-
-        //double longitude = controller.getCurrentLongitude();
-        //double latitude = controller.getCurrentLatitude();
-
-//        Log.i("infoBlood", "longitude: "+longitude);
-//        Log.i("infoBlood", "latitude: "+latitude);
-
-        //Define the location of the user. Take Paris as basis Location
-
-        //ArrayList<InfoPOI> listPOI = collectionPOI.getPOIInRadius(latitude, longitude, 20000);
 
         ArrayList<InfoPOI> listPOI = collectionPOI.getAllPOI();
 
@@ -167,59 +160,42 @@ public class MapsActivity extends ActivityWithDrawer implements OnMapReadyCallba
         gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
     }
 
-    /**
-     * Reads the JSon file
-     */
-//    private void readJSon(){
-//
-//        try {
-//            InputStream is = getAssets().open("DonSangCenter.json");
-//
-//            int size = is.available();
-//            byte[] buffer = new byte[size];
-//
-//            is.read(buffer);
-//            is.close();
-//
-//            //casts the buffer table to a string
-//            String json = new String(buffer, "UTF-8");
-//
-//            //JSONArray mArray = new JSONArray(json);
-//            JSONObject obj = new JSONObject(json);
-//
-//           // Toast.makeText(this, "LongueurArray:"+mArray.length(), Toast.LENGTH_LONG).show()
-//            Log.i("infoBlood", "nombre element JSONObject: "+obj.length());
-//
-//            JSONArray mArray = obj.getJSONArray("features");
-//            Log.i("infoBlood", "nombre element JSONArray: "+mArray.length());
-//
-//            CollectionPOI pois = new CollectionPOI();
-//
-//            for (int i=0; i<mArray.length(); i++){
-//                JSONObject poi = mArray.getJSONObject(i);
-//                JSONObject poiProp = poi.getJSONObject("properties");
-//                //Log.i("infoBlood", "lattitude: "+poiProp.optDouble("lat"));
-//
-//                double latitude = poiProp.optDouble("lat");
-//                double longitude = poiProp.optDouble("lon");
-//                String locationName = poiProp.optString("name");
-//                String townName = poiProp.optString("where:name");
-//
-//                String startDateStr = poiProp.optString("start");
-//                String stopDateStr = poiProp.optString("stop");
-//
-//                Date startDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'CET'").parse(startDateStr);
-//                Date stopDate = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'CET'").parse(stopDateStr);
-//
-//                pois.addPoi(new InfoPOI(latitude, longitude, locationName, townName, startDate, stopDate));
-//                //Log.i("infoBlood", "date: "+dateFormat.format(d1));
-//
-//                //Log.i("infoBlood", "lattitude: "+poiProp.optString("what"));
-//                //poi.optString("properties");
-//            }
-//        }
-//        catch(Exception e ){
-//            e.printStackTrace();
-//        }
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,
+                                           String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case MapController.MY_PERMISSIONS_REQUEST_LOCATION: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                    // permission was granted, yay! Do the
+                    // location-related task you need to do.
+                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        //Request location updates:
+                        //locationManager.requestLocationUpdates(provider, 400, 1, this);
+                    }
+                } else {
+                    // permission denied, boo! Disable the
+                    // functionality that depends on this permission.
+                }
+                return;
+            }
+
+        }
+    }
+
+    public void explainPermission()
+    {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Cette permission est nécessaire pour localiser votre position pour centrer la caméra de Maps").setTitle("Permission localisation");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        controller.requestLocationPermission();
+                    }
+                }
+        );
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }
