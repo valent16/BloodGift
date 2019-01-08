@@ -83,14 +83,15 @@ public class Profile {
             if (dateSang.get(Calendar.YEAR) == 2016 && dateSang.get(Calendar.MONTH) == 0 && dateSang.get(Calendar.DAY_OF_MONTH) == 1) {
                 message += "<p>Il faut avoir moins de 60 pour faire son premier don</p>";
             }else {
-                message += "<p>Après 60 ans, chaque don et soumis à l'aprobation de votre medecin</p>";
+                message += "<p>Après 60 ans, chaque don est soumis à l'aprobation de votre medecin</p>";
                 //cas spécial de semi-réussite
                 réussite=2;
+
             }
         }
         if (weight<50) {
             réussite=0;
-            message += "<p>vous êtes trop léger, il faut peser au moins 50kg pour donner son sang</p>";
+            message += "<p>Vous êtes trop léger, il faut peser au moins 50kg pour donner son sang</p>";
         }
 
 
@@ -117,22 +118,8 @@ public class Profile {
                         message += "<p>Cependant, vous pouvez encore donner votre plasma !</p>";
                     }
                 } else {
-                    if (réussitePlasma ==1) {
+                    if (réussitePlasma == 1) {
                         message += "<p>Cependant, vous pouvez encore donner vos plaquettes ou votre plasma !</p>";
-                    } else {
-                        message += "<p>Cependant, vous pouvez encore donner vos plaquettes !</p>";
-                    }
-                }
-            } else {
-                if (réussitePlaquette == 0){
-                    if (réussitePlasma == 0) {
-                        message += "<p>Cependant, vous pouvez encore donner votre sang !</p>";
-                    } else {
-                        message += "<p>Cependant, vous pouvez encore donner votre sang ou votre plasma !</p>";
-                    }
-                } else {
-                    if (réussitePlasma == 0){
-                        message += "<p>Cependant, vous pouvez encore donner votre sang, ou vos plaquettes !</p>";
                     }
                 }
             }

@@ -28,7 +28,7 @@ public class TestEligibleActivityResultat extends ActivityWithDrawer {
 
         tvResult1 = findViewById(R.id.txtResult1);
         tvResult2 = findViewById(R.id.txtResult2);
-        str = "Ce test n'est pas officiel, vous devrez de toute façon passer par votre medecin pour connaître votre eligibilité aux dons.";
+        str = "Ce test n'est pas officiel, vous devrez de toutes façons passer par votre medecin pour connaître votre éligibilité aux dons.";
 
         Intent intent = getIntent();
         if (intent != null){
